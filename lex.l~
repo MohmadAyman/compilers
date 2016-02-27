@@ -2,7 +2,7 @@
 #include "scanner.h"
 %}
 %%
-"db_type"		return TYPE;
+"db_typs"		return TYPE;
 "hello" printf("GoodBy\n");
 .		return ERROR;
 %%
