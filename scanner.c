@@ -21,8 +21,7 @@ int main(void)
 		}
 		vtoken = yylex();
 		switch(ntoken){
-			case TYPE:
-			case NAME:
+			case LPR:
 		if(vtoken == ERROR){	//  TODO
 			printf("%s is set to %s\n", names[ntoken],
 		 yytext);
@@ -31,4 +30,5 @@ int main(void)
 
 	}
     return 0;
+}
 }
