@@ -28,7 +28,7 @@ const         return KEYWORD ;
 "XOR"           return LOGICAL;
 "OR"            return LOGICAL;
 [ \t\n]      return WHITESPACE;
-"[_A-Za-z][_A-Za-Z0-9]*" return ID;
+[_A-Za-z][_A-Za-z0-9]* return ID;
 .		return ERROR;
 %%
 int yywrap(void)
