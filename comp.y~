@@ -73,8 +73,8 @@ void updateSymbolValInt(char *symbol, int val);
 %token BITNOT
 %token LINECOMMENT
 %token PRACOMMENT
-%token <id> assignment
-%type <id> declare
+%type <id> assignment
+%type <id> declare exp term
 %left PLUS MINUS 
 %left MULT DIV
 
@@ -95,7 +95,7 @@ exp    	: term                  {$$ = $1;}
        	| exp MINUS term          {$$ = $1 - $3;}
 		| exp MULT term          {$$ = $1 - $3;}
 		| exp DIV term          {$$ = $1 - $3;}
-		| LBRA expr RBRA           { $$ = $2; }
+		| LBRA exp RBRA           { $$ = $2; }
        	;
 term   	: INTEGER                {$$ = $1;}
 		| ID			{$$ = symbolVal($1);} 
