@@ -69,10 +69,10 @@ void yyerror (char *s);
 #include <stdlib.h>
 #include <string.h>
 int ValuesInt[1000];
-char Symbols*[1000];
-int symbolVal(char *symbol);
-void updateSymbols(char *symbol);
-void updateSymbolValInt(char *symbol, int val);
+char Symbols[1000];
+int symbolVal(char symbol);
+void updateSymbols(char symbol);
+void updateSymbolValInt(char symbol, int val);
 
 #line 78 "y.tab.c" /* yacc.c:339  */
 
@@ -249,7 +249,7 @@ typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
 #line 13 "comp.y" /* yacc.c:355  */
-int num; char *id;
+int num; char id;
 
 #line 255 "y.tab.c" /* yacc.c:355  */
 };
@@ -1381,7 +1381,7 @@ yyreduce:
 
   case 4:
 #line 89 "comp.y" /* yacc.c:1646  */
-    { updateSymbolValInt((yyvsp[-2].id),(yyvsp[0].id)); }
+    { updateSymbolValInt((yyvsp[-2].id),(yyvsp[0].num)); }
 #line 1386 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1393,49 +1393,49 @@ yyreduce:
 
   case 6:
 #line 93 "comp.y" /* yacc.c:1646  */
-    {(yyval.id) = (yyvsp[0].id);}
+    {(yyval.num) = (yyvsp[0].num);}
 #line 1398 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
 #line 94 "comp.y" /* yacc.c:1646  */
-    {(yyval.id) = (yyvsp[-2].id) + (yyvsp[0].id);}
+    {(yyval.num) = (yyvsp[-2].num) + (yyvsp[0].num);}
 #line 1404 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
 #line 95 "comp.y" /* yacc.c:1646  */
-    {(yyval.id) = (yyvsp[-2].id) - (yyvsp[0].id);}
+    {(yyval.num) = (yyvsp[-2].num) - (yyvsp[0].num);}
 #line 1410 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
 #line 96 "comp.y" /* yacc.c:1646  */
-    {(yyval.id) = (yyvsp[-2].id) - (yyvsp[0].id);}
+    {(yyval.num) = (yyvsp[-2].num) - (yyvsp[0].num);}
 #line 1416 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
 #line 97 "comp.y" /* yacc.c:1646  */
-    {(yyval.id) = (yyvsp[-2].id) - (yyvsp[0].id);}
+    {(yyval.num) = (yyvsp[-2].num) - (yyvsp[0].num);}
 #line 1422 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
 #line 98 "comp.y" /* yacc.c:1646  */
-    { (yyval.id) = (yyvsp[-1].id); }
+    { (yyval.num) = (yyvsp[-1].num); }
 #line 1428 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
 #line 100 "comp.y" /* yacc.c:1646  */
-    {(yyval.id) = (yyvsp[0].num);}
+    {(yyval.num) = (yyvsp[0].num);}
 #line 1434 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
 #line 101 "comp.y" /* yacc.c:1646  */
-    {(yyval.id) = symbolVal((yyvsp[0].id));}
+    {(yyval.num) = symbolVal((yyvsp[0].id));}
 #line 1440 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1671,24 +1671,24 @@ yyreturn:
 #line 104 "comp.y" /* yacc.c:1906  */
                      /* C code */
 
-void updateSymbols(char *symbol)
+void updateSymbols(char symbol)
 {
 	int i =-1;
-	while (*(Symbols[i+1])!='\0') 
+	while ((Symbols[i+1])!='\0') 
 	{
 		i++;
 	}
-	Symbols[i+1] = strdup(symbol);
+	Symbols[i+1] = strdup(&symbol);
 }
 
-int computeSymbolIndex(char *token)
+int computeSymbolIndex(char token)
 {
 	int idx = -1;
 	int i =-1;
-	while (*(Symbols[i+1])!="\0") 
+	while ((Symbols[i+1])!="\0") 
 	{
 		i++;
-		if (strcmp(Symbols[i], token) == 0)
+		if (strcmp(&Symbols[i], &token) == 0)
 		{
 			return i;
 		}
@@ -1696,14 +1696,14 @@ int computeSymbolIndex(char *token)
 } 
 
 /* returns the value of a given symbol */
-int symbolVal(char *symbol)
+int symbolVal(char symbol)
 {
 	int bucket = computeSymbolIndex(symbol);
 	return ValuesInt[bucket];
 }
 
 /* updates the value of a given symbol */
-void updateSymbolValInt(char *symbol, int val)
+void updateSymbolValInt(char symbol, int val)
 {
 	int bucket = computeSymbolIndex(symbol);
 	ValuesInt[bucket] = val;
@@ -1712,6 +1712,7 @@ void updateSymbolValInt(char *symbol, int val)
 int main (void) {
 	/* init symbol table */
 	int i;
+	char Symbols[100][100];
 	for(i=0; i<1000; i++) {
 		ValuesInt[i] = 0;
 	}
@@ -1721,7 +1722,7 @@ int main (void) {
 		int k;
 		for(k=0; k<100; k++)
 		{
-			char Symbols[j][k]="\0";
+			Symbols[j][k]="\0";
 		}
 	}
 

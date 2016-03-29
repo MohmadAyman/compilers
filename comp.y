@@ -4,13 +4,13 @@ void yyerror (char *s);
 #include <stdlib.h>
 #include <string.h>
 int ValuesInt[1000];
-char Symbols*[1000];
-int symbolVal(char *symbol);
-void updateSymbols(char *symbol);
-void updateSymbolValInt(char *symbol, int val);
+char Symbols[1000];
+int symbolVal(char symbol);
+void updateSymbols(char symbol);
+void updateSymbolValInt(char symbol, int val);
 %}
 
-%union {int num; char *id;}         /* Yacc definitions */
+%union {int num; char id;}         /* Yacc definitions */
 %start line
 %token ERROR
 %token IF
@@ -74,7 +74,7 @@ void updateSymbolValInt(char *symbol, int val);
 %token LINECOMMENT
 %token PRACOMMENT
 %type <id> assignment
-%type <id> declare exp term
+%type <num> declare exp term
 %left PLUS MINUS 
 %left MULT DIV
 
@@ -103,24 +103,24 @@ term   	: INTEGER                {$$ = $1;}
 
 %%                     /* C code */
 
-void updateSymbols(char *symbol)
+void updateSymbols(char symbol)
 {
 	int i =-1;
-	while (*(Symbols[i+1])!='\0') 
+	while ((Symbols[i+1])!='\0') 
 	{
 		i++;
 	}
-	Symbols[i+1] = strdup(symbol);
+	Symbols[i+1] = strdup(&symbol);
 }
 
-int computeSymbolIndex(char *token)
+int computeSymbolIndex(char token)
 {
 	int idx = -1;
 	int i =-1;
-	while (*(Symbols[i+1])!="\0") 
+	while ((Symbols[i+1])!="\0") 
 	{
 		i++;
-		if (strcmp(Symbols[i], token) == 0)
+		if (strcmp(&Symbols[i], &token) == 0)
 		{
 			return i;
 		}
@@ -128,14 +128,14 @@ int computeSymbolIndex(char *token)
 } 
 
 /* returns the value of a given symbol */
-int symbolVal(char *symbol)
+int symbolVal(char symbol)
 {
 	int bucket = computeSymbolIndex(symbol);
 	return ValuesInt[bucket];
 }
 
 /* updates the value of a given symbol */
-void updateSymbolValInt(char *symbol, int val)
+void updateSymbolValInt(char symbol, int val)
 {
 	int bucket = computeSymbolIndex(symbol);
 	ValuesInt[bucket] = val;
@@ -144,6 +144,7 @@ void updateSymbolValInt(char *symbol, int val)
 int main (void) {
 	/* init symbol table */
 	int i;
+	char Symbols[100][100];
 	for(i=0; i<1000; i++) {
 		ValuesInt[i] = 0;
 	}
@@ -153,7 +154,7 @@ int main (void) {
 		int k;
 		for(k=0; k<100; k++)
 		{
-			char Symbols[j][k]="\0";
+			Symbols[j][k]="\0";
 		}
 	}
 

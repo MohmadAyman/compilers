@@ -7,13 +7,15 @@ int symbolVal(char symbol);
 void updateSymbolVal(char symbol, int val);
 %}
 
-%union {int num; char id;}         /* Yacc definitions */
+%union {int num; char id;
+double fnum;}         /* Yacc definitions */
 %start line
 %token print
 %token exit_command
 %token <num> number
 %token <id> identifier
-%type <num> line exp term 
+%type <num> line exp term
+%type <fnum> line exp term 
 %type <id> assignment
 
 %%

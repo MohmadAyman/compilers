@@ -185,7 +185,7 @@ typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
 #line 13 "comp.y" /* yacc.c:1909  */
-int num; char *id;
+int num; char id;
 
 #line 191 "y.tab.h" /* yacc.c:1909  */
 };
