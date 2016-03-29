@@ -1,5 +1,5 @@
 %{
-#include "scanner.h"
+#include "y.tab.h"
 %}
 %%
 "int" return INT;
@@ -31,7 +31,7 @@
 "}"		return RPR;
 "++"    return INCREMENT;
 "--"    return DECREMENT;
--?[0-9]+          return INTEGER;
+-?[0-9]+  {yylval.num = atoi(yytext); return INTEGER;}
 -?[0-9]+\.?[0-9]* return FLOATING;
 '.'          return CHARACTER;
 ","	 return COMA;
@@ -65,7 +65,7 @@
 [A-Za-z][A-Za-z0-9]*[:] return LABEL;
 \"[^"\n]*["]  return STRINGVAL;
 "//".*\n return LINECOMMENT;
-[_A-Za-z][_A-Za-z0-9]* return ID;
+[_A-Za-z][_A-Za-z0-9]* {yylval.id = strdup(yytext); return ID;}
 . return ERROR;
 %%
 int yywrap(void)
