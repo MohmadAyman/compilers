@@ -73,8 +73,8 @@ void updateSymbolValInt(char symbol, int val);
 %token BITNOT
 %token LINECOMMENT
 %token PRACOMMENT
-%type <id> assignment
-%type <num> line exp term
+%type <id> exp term declare line
+%type <num> assignment 
 %left PLUS MINUS 
 %left MULT DIV
 
@@ -83,14 +83,6 @@ void updateSymbolValInt(char symbol, int val);
 /* descriptions of expected inputs     corresponding actions (in C) */
 
 line    : assignment ';'		{;}
-		| line assignment ';'	{;}
-        ;
-
-assignment : ID '=' exp  { updateSymbolValInt($1,$3); }
-			;
-
-/*
-line    : assignment ';'		{;}
 		| declare ';'			{;}
         ;
 
@@ -98,7 +90,6 @@ assignment : ID ASSGN exp  { updateSymbolValInt($1,$3); }
 			;
 declare : INT ID  { updateSymbols($2); }
 			;
-
 exp    	: term                  {$$ = $1;}
        	| exp PLUS term          {$$ = $1 + $3;}
        	| exp MINUS term          {$$ = $1 - $3;}
@@ -106,15 +97,6 @@ exp    	: term                  {$$ = $1;}
 		| exp DIV term          {$$ = $1 - $3;}
 		| LBRA exp RBRA           { $$ = $2; }
        	;
-*/
-declare : INT ID  { updateSymbols($2); }
-			;
-
-exp    	: term                  {$$ = $1;}
-       	| exp '+' term          {$$ = $1 + $3;}
-       	| exp '-' term          {$$ = $1 - $3;}
-       	;
-
 term   	: INTEGER                {$$ = $1;}
 		| ID			{$$ = symbolVal($1);} 
         ;
@@ -133,7 +115,7 @@ void updateSymbols(char symbol)
 
 int computeSymbolIndex(char token)
 {
-	int idx = -1;
+/*	int idx = -1;
 	int i =-1;
 	while ((Symbols[i+1])!="\0") 
 	{
@@ -143,20 +125,25 @@ int computeSymbolIndex(char token)
 			return i;
 		}
 	}
+*/
+	return 10;
 } 
 
 /* returns the value of a given symbol */
 int symbolVal(char symbol)
 {
 	int bucket = computeSymbolIndex(symbol);
+	printf("Bucket val %d", bucket);
 	return ValuesInt[bucket];
 }
 
 /* updates the value of a given symbol */
 void updateSymbolValInt(char symbol, int val)
 {
+	printf("in update Symol \n");	
 	int bucket = computeSymbolIndex(symbol);
 	ValuesInt[bucket] = val;
+	printf("out update Symol %d \n",val);	
 }
 
 int main (void) {
@@ -175,7 +162,6 @@ int main (void) {
 			Symbols[j][k]="\0";
 		}
 	}
-
 	return yyparse ( );
 }
 

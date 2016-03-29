@@ -73,8 +73,8 @@ void updateSymbolValInt(char symbol, int val);
 %token BITNOT
 %token LINECOMMENT
 %token PRACOMMENT
-%type <id> assignment
-%type <num> declare exp term
+%type <id> exp term declare line
+%type <num> assignment 
 %left PLUS MINUS 
 %left MULT DIV
 
@@ -115,7 +115,7 @@ void updateSymbols(char symbol)
 
 int computeSymbolIndex(char token)
 {
-	int idx = -1;
+/*	int idx = -1;
 	int i =-1;
 	while ((Symbols[i+1])!="\0") 
 	{
@@ -125,20 +125,25 @@ int computeSymbolIndex(char token)
 			return i;
 		}
 	}
+*/
+	return 10;
 } 
 
 /* returns the value of a given symbol */
 int symbolVal(char symbol)
 {
 	int bucket = computeSymbolIndex(symbol);
+	printf("Bucket val %d", bucket);
 	return ValuesInt[bucket];
 }
 
 /* updates the value of a given symbol */
 void updateSymbolValInt(char symbol, int val)
 {
+	printf("in update Symol \n");	
 	int bucket = computeSymbolIndex(symbol);
 	ValuesInt[bucket] = val;
+	printf("out update Symol %d \n",val);	
 }
 
 int main (void) {
@@ -157,7 +162,6 @@ int main (void) {
 			Symbols[j][k]="\0";
 		}
 	}
-
 	return yyparse ( );
 }
 
