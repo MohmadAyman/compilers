@@ -3,8 +3,8 @@ void yyerror (char *s);
 #include <stdio.h>     /* C declarations used in actions */
 #include <stdlib.h>
 #include <string.h>
-int ValuesInt[1000];
-char Symbols[1000];
+int ValuesInt[100];
+char Symbols[100];
 int symbolVal(char symbol);
 void updateSymbols(char symbol);
 void updateSymbolValInt(char symbol, int val);
@@ -144,15 +144,15 @@ void updateSymbolValInt(char symbol, int val)
 int main (void) {
 	/* init symbol table */
 	int i;
-	char Symbols[100][100];
-	for(i=0; i<1000; i++) {
+	char Symbols[10][10];
+	for(i=0; i<100; i++) {
 		ValuesInt[i] = 0;
 	}
 	int j;
-	for(j=0; j<1000; j++) 
+	for(j=0; j<10; j++) 
 	{
 		int k;
-		for(k=0; k<100; k++)
+		for(k=0; k<10; k++)
 		{
 			Symbols[j][k]="\0";
 		}

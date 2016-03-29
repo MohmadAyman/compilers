@@ -14,7 +14,8 @@ double fnum;}         /* Yacc definitions */
 %token exit_command
 %token <num> number
 %token <id> identifier
-%type <num> line exp term 
+%type <num> line exp term
+%type <fnum> line exp term 
 %type <id> assignment
 
 %%
