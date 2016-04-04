@@ -66,46 +66,46 @@ extern int yydebug;
     RBRA = 276,
     ASSGN = 277,
     COMA = 278,
-    WHITESPACE = 279,
-    MOD = 280,
-    GREATER = 281,
-    LESS = 282,
-    EQUALEQUAL = 283,
-    GREATEREQUAL = 284,
-    LESSEQUAL = 285,
-    NOTEQUAL = 286,
-    NOT = 287,
-    AND = 288,
-    XOR = 289,
-    OR = 290,
-    XNOR = 291,
-    SHIFTL = 292,
-    SHIFTR = 293,
-    PRINT = 294,
-    BREAK = 295,
-    CONTINUE = 296,
-    LABEL = 297,
-    GOTO = 298,
-    STRINGVAL = 299,
-    LSQUAREPR = 300,
-    RSQUAREPR = 301,
-    DO = 302,
-    DEFAULT = 303,
-    INTEGER = 304,
-    INT = 305,
-    FLOAT = 306,
-    CHAR = 307,
-    VOID = 308,
-    STRING = 309,
-    INCREMENT = 310,
-    DECREMENT = 311,
-    BITOR = 312,
-    BITXOR = 313,
-    BITXNOR = 314,
-    BITAND = 315,
-    BITNOT = 316,
-    LINECOMMENT = 317,
-    PRACOMMENT = 318,
+    MOD = 279,
+    GREATER = 280,
+    LESS = 281,
+    EQUALEQUAL = 282,
+    GREATEREQUAL = 283,
+    LESSEQUAL = 284,
+    NOTEQUAL = 285,
+    NOT = 286,
+    AND = 287,
+    XOR = 288,
+    OR = 289,
+    XNOR = 290,
+    SHIFTL = 291,
+    SHIFTR = 292,
+    PRINT = 293,
+    BREAK = 294,
+    CONTINUE = 295,
+    LABEL = 296,
+    GOTO = 297,
+    STRINGVAL = 298,
+    LSQUAREPR = 299,
+    RSQUAREPR = 300,
+    DO = 301,
+    DEFAULT = 302,
+    INTEGER = 303,
+    INT = 304,
+    FLOAT = 305,
+    CHAR = 306,
+    VOID = 307,
+    STRING = 308,
+    INCREMENT = 309,
+    DECREMENT = 310,
+    BITOR = 311,
+    BITXOR = 312,
+    BITXNOR = 313,
+    BITAND = 314,
+    BITNOT = 315,
+    LINECOMMENT = 316,
+    PRACOMMENT = 317,
+    exit_command = 318,
     PLUS = 319,
     MINUS = 320,
     MULT = 321,
@@ -134,46 +134,46 @@ extern int yydebug;
 #define RBRA 276
 #define ASSGN 277
 #define COMA 278
-#define WHITESPACE 279
-#define MOD 280
-#define GREATER 281
-#define LESS 282
-#define EQUALEQUAL 283
-#define GREATEREQUAL 284
-#define LESSEQUAL 285
-#define NOTEQUAL 286
-#define NOT 287
-#define AND 288
-#define XOR 289
-#define OR 290
-#define XNOR 291
-#define SHIFTL 292
-#define SHIFTR 293
-#define PRINT 294
-#define BREAK 295
-#define CONTINUE 296
-#define LABEL 297
-#define GOTO 298
-#define STRINGVAL 299
-#define LSQUAREPR 300
-#define RSQUAREPR 301
-#define DO 302
-#define DEFAULT 303
-#define INTEGER 304
-#define INT 305
-#define FLOAT 306
-#define CHAR 307
-#define VOID 308
-#define STRING 309
-#define INCREMENT 310
-#define DECREMENT 311
-#define BITOR 312
-#define BITXOR 313
-#define BITXNOR 314
-#define BITAND 315
-#define BITNOT 316
-#define LINECOMMENT 317
-#define PRACOMMENT 318
+#define MOD 279
+#define GREATER 280
+#define LESS 281
+#define EQUALEQUAL 282
+#define GREATEREQUAL 283
+#define LESSEQUAL 284
+#define NOTEQUAL 285
+#define NOT 286
+#define AND 287
+#define XOR 288
+#define OR 289
+#define XNOR 290
+#define SHIFTL 291
+#define SHIFTR 292
+#define PRINT 293
+#define BREAK 294
+#define CONTINUE 295
+#define LABEL 296
+#define GOTO 297
+#define STRINGVAL 298
+#define LSQUAREPR 299
+#define RSQUAREPR 300
+#define DO 301
+#define DEFAULT 302
+#define INTEGER 303
+#define INT 304
+#define FLOAT 305
+#define CHAR 306
+#define VOID 307
+#define STRING 308
+#define INCREMENT 309
+#define DECREMENT 310
+#define BITOR 311
+#define BITXOR 312
+#define BITXNOR 313
+#define BITAND 314
+#define BITNOT 315
+#define LINECOMMENT 316
+#define PRACOMMENT 317
+#define exit_command 318
 #define PLUS 319
 #define MINUS 320
 #define MULT 321
@@ -184,8 +184,8 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 13 "comp.y" /* yacc.c:1909  */
-int num; char id;
+#line 15 "comp.y" /* yacc.c:1909  */
+int num; char id; float fnum;
 
 #line 191 "y.tab.h" /* yacc.c:1909  */
 };

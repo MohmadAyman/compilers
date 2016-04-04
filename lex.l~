@@ -1,35 +1,71 @@
 %{
-#include "scanner.h"
+#include "y.tab.h"
 %}
 %%
-if		return KEYWORD ;
-else          return KEYWORD ;
-for           return KEYWORD ;
-switch        return KEYWORD ;
-case         return KEYWORD ;
-while         return KEYWORD ;
-return        return KEYWORD ;
-until         return KEYWORD ;
-const         return KEYWORD ;
+"int" return INT;
+"float" return FLOAT;
+"char" return CHAR;
+"void" return VOID;
+"string" return STRING;
+"if"		return IF ;	                 
+"else"      return ELSE ;
+"for"       return FOR ;
+"switch"    return SWITCH ;
+"case"      return CASE ;
+"default" return DEFAULT;
+"while"     return WHILE ;
+"do"        return DO;   
+"return"    return RETURN ;
+"until"     return UNTIL ;
+"const"     return CONST ;
 "("		return LBRA ;
 ")"		return RBRA ;
 ":"		return COLN ;
 ";"		return SEMCOLN;
-"[+-/*\]"       return OP;
+"+"     return PLUS;
+"-"     return MINUS;
+"/"     return DIV;
+"*"     return MULT;
+"\\"     return MOD;    
 "{"		return LPR;
 "}"		return RPR;
--?[0-9]+\.?[0-9]* return NUMBER;
-'.'          return CHAR;
-,		return COMA;
-=		return ASSGN;
-(>)|(<)|(==)|(<=)|(>=)|(<>) return COMP;
-"NOT"           return LOGICAL;
-"AND"           return LOGICAL;
-"XOR"           return LOGICAL;
-"OR"            return LOGICAL;
-[ \t\n]      return WHITESPACE;
-"[_A-Za-z][_A-Za-Z0-9]*" return ID;
-.		return ERROR;
+"++"    return INCREMENT;
+"--"    return DECREMENT;
+-?[0-9]+  {yylval.num = atoi(yytext); return INTEGER;}
+-?[0-9]+\.?[0-9]* {yylval.num = atoi(yytext); return FLOATING;}
+'.'          return CHARACTER;
+","	 return COMA;
+"="	 return ASSGN;
+">"  return GREATER;
+"<"  return LESS;
+"==" return EQUALEQUAL;
+"<=" return GREATEREQUAL;
+">=" return LESSEQUAL;
+"<>" return NOTEQUAL;
+"not"           return NOT;
+"and"           return AND;
+"xor"           return XOR;
+"or"            return OR;
+"xnor"          return XNOR;
+"bitor"         return BITOR;
+"bitxor"        return BITXOR; 
+"bitxnor"       return BITXNOR;
+"bitand"        return BITAND;
+"bitnot"        return BITNOT;
+"[" return LSQUAREPR;
+"]" return RSQUAREPR;
+"<<" return SHIFTL;
+">>" return SHIFTR;
+"print" return PRINT;
+"break" return BREAK; 
+"continue" return CONTINUE;
+"goto" return GOTO;
+"/*"(.|[\t\r\n])*"*/" return PRACOMMENT;
+[A-Za-z][A-Za-z0-9]*[:] return LABEL;
+\"[^"\n]*["]  return STRINGVAL;
+"//".*\n return LINECOMMENT;
+[_A-Za-z][_A-Za-z0-9]* {yylval.id = yytext; return ID;}
+. return ERROR;
 %%
 int yywrap(void)
 {

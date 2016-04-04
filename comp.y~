@@ -4,13 +4,18 @@ void yyerror (char *s);
 #include <stdlib.h>
 #include <string.h>
 int ValuesInt[100];
+int ValuesFloat[100];
 char Symbols[100];
+
 int symbolVal(char symbol);
 void updateSymbols(char symbol);
 void updateSymbolValInt(char symbol, int val);
+
+void updateSymbolValFloat(char symbol, float val);
+float symbolValFloat(char symbol);
 %}
 
-%union {int num; char id;}         /* Yacc definitions */
+%union {int num; char id; float fnum;}         /* Yacc definitions */
 %start line
 %token ERROR
 %token IF
@@ -25,7 +30,7 @@ void updateSymbolValInt(char symbol, int val);
 %token <id> ID
 %token COLN
 %token SEMCOLN
-%token FLOATING
+%token <fnum> FLOATING
 %token CHARACTER
 %token LPR
 %token RPR
@@ -33,7 +38,6 @@ void updateSymbolValInt(char symbol, int val);
 %token RBRA
 %token ASSGN
 %token COMA
-%token WHITESPACE
 %token MOD
 %token GREATER
 %token LESS
@@ -73,32 +77,49 @@ void updateSymbolValInt(char symbol, int val);
 %token BITNOT
 %token LINECOMMENT
 %token PRACOMMENT
-%type <id> exp term declare line
+%type <id> exp term declare
 %type <num> assignment 
+%type <fnum> floatAssignment expF termF
 %left PLUS MINUS 
 %left MULT DIV
-
 %%
 
 /* descriptions of expected inputs     corresponding actions (in C) */
 
-line    : assignment ';'		{;}
-		| declare ';'			{;}
+line    : assignment SEMCOLN		{printf("END");}
+	| declare SEMCOLN		{printf("Declare");}
+	| PRINT exp SEMCOLN	{printf("Printing %d\n", $3);}
+	| exit_command SEMCOLN	{exit(EXIT_SUCCESS);}
+	| line assignment SEMCOLN	{printf("END");}
+	| line declare SEMCOLN 	{printf("Declare");}
+	| line PRINT exp SEMCOLN	{printf("Printing %d\n", $3);}
+	| line exit_command SEMCOLN	{exit(EXIT_SUCCESS);}
         ;
 
-assignment : ID ASSGN exp  { updateSymbolValInt($1,$3); }
+assignment : ID ASSGN exp  { updateSymbolValInt($1,$3);printf("Printing %d\n", $3); }
 			;
 declare : INT ID  { updateSymbols($2); }
+	|FLOATING ID {updateSymbols($2);}
 			;
 exp    	: term                  {$$ = $1;}
        	| exp PLUS term          {$$ = $1 + $3;}
        	| exp MINUS term          {$$ = $1 - $3;}
-		| exp MULT term          {$$ = $1 - $3;}
-		| exp DIV term          {$$ = $1 - $3;}
-		| LBRA exp RBRA           { $$ = $2; }
+	| exp MULT term          {$$ = $1 - $3;}
+	| exp DIV term          {$$ = $1 - $3;}
+	| LBRA exp RBRA           { $$ = $2; }
        	;
+
 term   	: INTEGER                {$$ = $1;}
-		| ID			{$$ = symbolVal($1);} 
+	| ID			{$$ = symbolVal($1);} 
+        ;
+
+floatAssignment : ID ASSGN expF { updateSymbolValFloat($1,$3);printf("Printing a float\n"); }
+			;
+expF    : termF                  {$$ = $1;}
+	| LBRA expF RBRA           { $$ = $2; }
+       	;
+termF  	: FLOATING                {$$ = $1;}
+	| ID			{$$ = symbolValF($1);} 
         ;
 
 %%                     /* C code */
@@ -126,7 +147,7 @@ int computeSymbolIndex(char token)
 		}
 	}
 */
-	return 10;
+	return 0;
 } 
 
 /* returns the value of a given symbol */
@@ -137,6 +158,13 @@ int symbolVal(char symbol)
 	return ValuesInt[bucket];
 }
 
+float symbolValFloat(char symbol)
+{
+	int bucket = computeSymbolIndex(symbol);
+	printf("Bucket val %d", bucket);
+	return ValuesFloat[bucket];
+}
+
 /* updates the value of a given symbol */
 void updateSymbolValInt(char symbol, int val)
 {
@@ -144,6 +172,14 @@ void updateSymbolValInt(char symbol, int val)
 	int bucket = computeSymbolIndex(symbol);
 	ValuesInt[bucket] = val;
 	printf("out update Symol %d \n",val);	
+}
+
+void updateSymbolValFloat(char symbol, float val)
+{
+	printf("in update Symol \n");	
+	int bucket = computeSymbolIndex(symbol);
+	ValuesFloat[bucket] = val;
+	printf("out update Symol %f \n",val);	
 }
 
 int main (void) {
@@ -165,4 +201,4 @@ int main (void) {
 	return yyparse ( );
 }
 
-void yyerror (char *s) {fprintf (stderr, "%s\n", s);} 
+void yyerror (char *s) {fprintf (stderr, "%s\n", s);}

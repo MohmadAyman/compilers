@@ -47,15 +47,17 @@ extern int yydebug;
   {
     print = 258,
     exit_command = 259,
-    number = 260,
-    identifier = 261
+    float = 260,
+    number = 261,
+    identifier = 262
   };
 #endif
 /* Tokens.  */
 #define print 258
 #define exit_command 259
-#define number 260
-#define identifier 261
+#define float 260
+#define number 261
+#define identifier 262
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -64,8 +66,9 @@ union YYSTYPE
 {
 #line 10 "calc.y" /* yacc.c:1909  */
 int num; char id;
+double fnum;
 
-#line 69 "y.tab.h" /* yacc.c:1909  */
+#line 72 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

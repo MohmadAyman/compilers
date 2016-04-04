@@ -12,11 +12,12 @@ double fnum;}         /* Yacc definitions */
 %start line
 %token print
 %token exit_command
+%token <fnum> float
 %token <num> number
 %token <id> identifier
 %type <num> line exp term
-%type <fnum> line exp term 
 %type <id> assignment
+
 
 %%
 

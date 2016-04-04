@@ -32,7 +32,7 @@
 "++"    return INCREMENT;
 "--"    return DECREMENT;
 -?[0-9]+  {yylval.num = atoi(yytext); return INTEGER;}
--?[0-9]+\.?[0-9]* return FLOATING;
+-?[0-9]+\.?[0-9]* {yylval.num = atoi(yytext); return FLOATING;}
 '.'          return CHARACTER;
 ","	 return COMA;
 "="	 return ASSGN;
@@ -52,6 +52,7 @@
 "bitxnor"       return BITXNOR;
 "bitand"        return BITAND;
 "bitnot"        return BITNOT;
+"exit"		return exit_command;
 "[" return LSQUAREPR;
 "]" return RSQUAREPR;
 "<<" return SHIFTL;
@@ -60,12 +61,11 @@
 "break" return BREAK; 
 "continue" return CONTINUE;
 "goto" return GOTO;
+[_A-Za-z][_A-Za-z0-9]* {yylval.id = yytext; return ID;}
 "/*"(.|[\t\r\n])*"*/" return PRACOMMENT;
-[ \t\r\n]+  return WHITESPACE;
 [A-Za-z][A-Za-z0-9]*[:] return LABEL;
 \"[^"\n]*["]  return STRINGVAL;
 "//".*\n return LINECOMMENT;
-[_A-Za-z][_A-Za-z0-9]* {yylval.id = strdup(yytext); return ID;}
 . return ERROR;
 %%
 int yywrap(void)
