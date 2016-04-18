@@ -573,7 +573,7 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    86,    86,    87,    88,    89,    90,    91,    94,    97,
-      98,    99,   100,   101,   102,   105,   106
+      98,   102,   103,   104,   105,   108,   109
 };
 #endif
 
@@ -1425,48 +1425,51 @@ yyreduce:
 
   case 10:
 #line 98 "comp.y" /* yacc.c:1646  */
-    {(yyval.id) = (yyvsp[-2].id) + (yyvsp[0].id);}
-#line 1430 "y.tab.c" /* yacc.c:1646  */
+    {(yyval.id) = (yyvsp[-2].id) + (yyvsp[0].id);
+       				printf("mov ax,%s\n",symbolVal((yyvsp[-2].id)));
+       				printf("mov bx,%s\n",symbolVal((yyvsp[0].id)));
+       				printf("ADD ax,bx\n");}
+#line 1433 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 99 "comp.y" /* yacc.c:1646  */
+#line 102 "comp.y" /* yacc.c:1646  */
     {(yyval.id) = (yyvsp[-2].id) - (yyvsp[0].id);}
-#line 1436 "y.tab.c" /* yacc.c:1646  */
+#line 1439 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 100 "comp.y" /* yacc.c:1646  */
+#line 103 "comp.y" /* yacc.c:1646  */
     {(yyval.id) = (yyvsp[-2].id) * (yyvsp[0].id);}
-#line 1442 "y.tab.c" /* yacc.c:1646  */
+#line 1445 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 101 "comp.y" /* yacc.c:1646  */
+#line 104 "comp.y" /* yacc.c:1646  */
     {(yyval.id) = (yyvsp[-2].id) / (yyvsp[0].id);}
-#line 1448 "y.tab.c" /* yacc.c:1646  */
+#line 1451 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 102 "comp.y" /* yacc.c:1646  */
+#line 105 "comp.y" /* yacc.c:1646  */
     { (yyval.id) = (yyvsp[-1].id); }
-#line 1454 "y.tab.c" /* yacc.c:1646  */
+#line 1457 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 105 "comp.y" /* yacc.c:1646  */
+#line 108 "comp.y" /* yacc.c:1646  */
     {(yyval.id) = (yyvsp[0].num);}
-#line 1460 "y.tab.c" /* yacc.c:1646  */
+#line 1463 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 106 "comp.y" /* yacc.c:1646  */
-    {(yyval.id) = symbolVal((yyvsp[0].id));}
-#line 1466 "y.tab.c" /* yacc.c:1646  */
+#line 109 "comp.y" /* yacc.c:1646  */
+    {(yyval.id) = (yyvsp[0].id);}
+#line 1469 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1470 "y.tab.c" /* yacc.c:1646  */
+#line 1473 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1694,7 +1697,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 110 "comp.y" /* yacc.c:1906  */
+#line 113 "comp.y" /* yacc.c:1906  */
                      /* C code */
 
 int computeSymbolIndex(char token)

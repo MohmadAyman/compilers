@@ -95,7 +95,10 @@ assignment : ID ASSGN exp  { updateSymbolVal($1,$3); }
 			;
 
 exp    	: term                  {$$ = $1;}
-       	| exp PLUS term          {$$ = $1 + $3;}
+       	| exp PLUS term          {$$ = $1 + $3;
+       				printf("mov ax,%s\n",symbolVal($1));
+       				printf("mov bx,%s\n",symbolVal($3));
+       				printf("ADD ax,bx\n");}
        	| exp MINUS term          {$$ = $1 - $3;}
 		| exp MULT term          {$$ = $1 * $3;}
 		| exp DIV term          {$$ = $1 / $3;}
@@ -103,7 +106,7 @@ exp    	: term                  {$$ = $1;}
        	;
 
 term   	: INTEGER                {$$ = $1;}
-		| ID			{$$ = symbolVal($1);} 
+		| ID			{$$ = $1;} 
         ;
 
 

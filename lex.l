@@ -62,14 +62,10 @@
 "continue" return CONTINUE;
 "goto" return GOTO;
 [_A-Za-z][_A-Za-z0-9]* {yylval.id = yytext; return ID;}
-"/*"(.|[\t\r\n])*"*/" return PRACOMMENT;
-[A-Za-z][A-Za-z0-9]*[:] return LABEL;
-\"[^"\n]*["]  return STRINGVAL;
-"//".*\n return LINECOMMENT;
 . return ERROR;
 %%
-int yywrap(void)
-{
+int yywrap(void
+){
 return 1;
 }
 
