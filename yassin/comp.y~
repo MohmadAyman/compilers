@@ -68,9 +68,7 @@
 	%token PRACOMMENT
 	%token exit_command
 	%type <id> exp term declare OP
-	%type <num> assignment
-	%left GREATER  LESS  EQUALEQUAL GREATEREQUAL  LESSEQUAL   NOTEQUAL 
-	%left  AND XOR OR  XNOR 
+	%type <num> assignment 
 	%left PLUS MINUS 
 	%left MULT DIV MOD
 	%%
@@ -87,7 +85,7 @@
 
 	assignment : ID ASSGN exp  {printf("POP %s  \n", $1);} 
                    | ID INCREMENT {printf("INC %s  \n", $1);}
-                   | ID DECREMENT {printf("DEC %s  \n", $1);}
+                   | 
 	declare : INT ID {printf(" Define INT %s   ",$2);}			;
 	| CONST INT ID  {printf(" constant Define INT %s   ",$3);} ;
 	exp    	: 
