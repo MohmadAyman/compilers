@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html >
+
+<head>
+	<meta charset="utf-8"/>
+	<title>Compiler</title>
+
+
+
+	<!-- bower:js -->
+	<script src="/lib/jquery/dist/jquery.js"></script>
+	<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<!-- endbower -->
+	<!-- bower:css -->
+	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+	<!-- endbower -->
+	<!-- inject:js -->
+	<!-- endinject -->  
+	<!-- inject:css -->
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/styles.css">
+	<!-- endinject -->  
+	<!-- The main CSS file -->
+
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+			<![endif]-->
+		</head>
+		<!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
+		<body >
+			<!-- HEADER AND TODO COUNT -->
+
+			<form method="POST" action="/compile">
+				<div >
+					<h1 align="center">the super fancy compiler!</h1>
+
+                        <!-- Loop through the services array, assign a click handler, and set or
+                        remove the "active" css class if needed -->
+                        <div class="form-group">
+                        	<div class="row">
+                        		wrote your source here
+                        		<input type="text" class="form-control input-md text-center" placeholder="Search for item" name="source" id="source"> 
+                        	</div>
+
+                        	<button type="submit" class="btn btn-primary btn-lg">COMPILE!</button>
+                        </div>
+                    </form>      
+                    <form action="/read_paths" method="POST">
+                    	<div >
+
+                 
+                        <div class="form-group">
+                        	<div class="row">
+                        		<h2> Or Enter in input file path and the outputfile Path here:</h2>
+                        		<input type="text" class="form-control input-md text-center" placeholder="Search for item" name="in_path" id="in_path" >
+                        		<input type="text" class="form-control input-md text-center" placeholder="Search for item" name="out_path" id="out_path" > 
+                        	</div>
+                        	<button type="submit" class="btn btn-primary btn-lg">Done</button>
+                        </div>
+                    </form>         
+             </div>
+         </body>
+         </html>
